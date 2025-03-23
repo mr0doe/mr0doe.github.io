@@ -6,228 +6,253 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2FgLqrlL4QWHkAAAAC%2Ftrippy-trip.gif">
   <title>ᗰᖇ. ᗪOE'ᔕ TOOᒪᗷO᙭</title>
-<style>
-  :root {
-    --primary: #2A2F3B;
-    --secondary: #434956;
-    --accent: #6C63FF;
-    --text: #F5F5F5;
-    --success: #00ff88;
-    --error: #ff4444;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text);
-  }
-
-  .container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2.5rem;
-    border-radius: 25px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-      0 0 20px rgba(108, 99, 255, 0.1);
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-      float 6s ease-in-out infinite;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent);
-    transition: 0.5s;
-  }
-
-  .container:hover::before {
-    left: 100%;
-  }
-
-  h1 {
-    margin-bottom: 1.5rem;
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, #fff, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
-    position: relative;
-    animation: titleGlow 2s ease-in-out infinite alternate;
-  }
-
-  .input-group {
-    position: relative;
-    margin: 2rem 0;
-  }
-
-  input {
-    width: 100%;
-    padding: 1.3rem;
-    border: none;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text);
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    padding-left: 23px;
-  }
-
-  input:focus {
-    outline: 2px solid var(--accent);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
-  }
-
-  .input-group::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.7;
-  }
-
-  button {
-    background: linear-gradient(135deg, var(--accent), #857dff);
-    color: white;
-    border: none;
-    padding: 1.2rem 2.5rem;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent);
-    transform: rotate(45deg);
-    animation: shine 3s infinite;
-  }
-
-  button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-  }
-
-  button:active {
-    transform: translateY(0);
-  }
-
-  .status {
-    margin-top: 1.5rem;
-    min-height: 24px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .success {
-    color: var(--success);
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-  }
-
-  .error {
-    color: var(--error);
-    text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
-  }
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(50px);
-      opacity: 0;
+  <style>
+    :root {
+      --primary: #2A2F3B;
+      --secondary: #434956;
+      --accent: #6C63FF;
+      --text: #F5F5F5;
+      --success: #00ff88;
+      --error: #ff4444;
     }
 
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes titleGlow {
-    from {
-      text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
-    }
-
-    to {
-      text-shadow: 0 0 25px rgba(108, 99, 255, 0.5);
-    }
-  }
-
-  @keyframes shine {
-    0% {
-      transform: translateX(-100%) rotate(45deg);
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text);
     }
 
-    100% {
-      transform: translateX(100%) rotate(45deg);
-    }
-  }
-
-  @media (max-width: 480px) {
     .container {
-      padding: 1.5rem;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2.5rem;
+      border-radius: 25px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(108, 99, 255, 0.1);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+        float 6s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent);
+      transition: 0.5s;
+    }
+
+    .container:hover::before {
+      left: 100%;
     }
 
     h1 {
-      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      background: linear-gradient(45deg, #fff, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+      position: relative;
+      animation: titleGlow 2s ease-in-out infinite alternate;
+    }
+
+    .input-group {
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 1.3rem;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      padding-left: 23px;
+    }
+
+    input:focus {
+      outline: 2px solid var(--accent);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+    }
+
+    .input-group::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.7;
     }
 
     button {
-      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--accent), #857dff);
+      color: white;
+      border: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      position: relative;
+      overflow: hidden;
     }
-  }
-</style>
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .status {
+      margin-top: 1.5rem;
+      min-height: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .success {
+      color: var(--success);
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    .error {
+      color: var(--error);
+      text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes titleGlow {
+      from {
+        text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
+      }
+
+      to {
+        text-shadow: 0 0 25px rgba(108, 99, 255, 0.5);
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        padding: 1rem 2rem;
+      }
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.5);
+      color: var(--text);
+      text-align: center;
+      padding: 1rem 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
@@ -240,50 +265,54 @@
     <div class="status" id="status"></div>
   </div>
 
+  <footer>
+    <p>Created by <a href="https://github.com/mr0doe" target="_blank">mr0doe</a></p>
+  </footer>
+
   <script>
     const toolCodeMap = {
-            '1337': 'https://downgit.github.io/#/home?url=https://github.com/electron/electron/blob/main/shell/common/process_util.cc',
-            '777': 'https://downgit.github.io/#/home?url=https://github.com/NixOS/nixpkgs/blob/master/.mergify.yml',
-            '4242': 'https://downgit.github.io/#/home?url=https://github.com/python/cpython/blob/main/Lib/base64.py',
-            '9876': 'https://downgit.github.io/#/home?url=https://github.com/torvalds/linux/blob/master/kernel/sched/core.c'
-        };
+      '1337': 'https://downgit.github.io/#/home?url=https://github.com/electron/electron/blob/main/shell/common/process_util.cc',
+      '777': 'https://downgit.github.io/#/home?url=https://github.com/NixOS/nixpkgs/blob/master/.mergify.yml',
+      '4242': 'https://downgit.github.io/#/home?url=https://github.com/python/cpython/blob/main/Lib/base64.py',
+      '9876': 'https://downgit.github.io/#/home?url=https://github.com/torvalds/linux/blob/master/kernel/sched/core.c'
+    };
 
-        function updateStatus(text, isError = false) {
-            const status = document.getElementById('status');
-            status.className = isError ? 'error' : 'success';
-            status.textContent = text;
-            setTimeout(() => status.textContent = '', 3000);
-        }
+    function updateStatus(text, isError = false) {
+      const status = document.getElementById('status');
+      status.className = isError ? 'error' : 'success';
+      status.textContent = text;
+      setTimeout(() => status.textContent = '', 3000);
+    }
 
-        function handleDownload() {
-            const code = document.getElementById('toolCode').value;
-            const status = document.getElementById('status');
-            
-            if (!code.match(/^\d+$/)) {
-                updateStatus('⚠️ Invalid code format UwU! Use numbers only <w>', true);
-                return;
-            }
+    function handleDownload() {
+      const code = document.getElementById('toolCode').value;
+      const status = document.getElementById('status');
 
-            const url = toolCodeMap[code];
-            
-            if (!url) {
-                updateStatus('❌ Invalid tool code!', true);
-                return;
-            }
+      if (!code.match(/^\d+$/)) {
+        updateStatus('⚠️ Invalid code format UwU! Use numbers only <w>', true);
+        return;
+      }
 
-            updateStatus('⏳ Downloading...');
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', '');
-            link.style.display = 'none';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            updateStatus('✅ Download started!');
-        }
+      const url = toolCodeMap[code];
+
+      if (!url) {
+        updateStatus('❌ Invalid tool code!', true);
+        return;
+      }
+
+      updateStatus('⏳ Downloading...');
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', '');
+      link.style.display = 'none';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      updateStatus('✅ Download started!');
+    }
   </script>
 </body>
 
