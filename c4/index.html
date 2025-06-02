@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ᯡᯡᯡᯡᯡᯡᯡᯡᯡ</title>
+  <link rel="icon" type="image/x-icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2FgLqrlL4QWHkAAAAC%2Ftrippy-trip.gif">
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      background: #2d2d2d;
+      color: white;
+    }
+
+    #refreshInput {
+      flex-shrink: 0;
+      width: 200px;
+    }
+
+    button {
+      background: #00c896;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #00b386;
+    }
+
+    .site-container {
+      margin-bottom: 2rem;
+      border: 2px solid #444;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #1e1e1e;
+      overflow-y: auto;
+      max-height: 400px;
+      position: relative;
+    }
+
+    .site-container h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: #00c896;
+      word-break: break-all;
+      padding-right: 160px; /* make room for indicator + clone + refresh label */
+    }
+
+    .site-container iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      background: white;
+      color: black;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    #viewerGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1rem;
+    }
+
+    .proxy-indicator {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .proxy-active {
+      background: #00c896;
+      color: white;
+    }
+
+    .proxy-inactive {
+      background: #ff6b6b;
+      color: white;
+    }
+
+    .proxy-fallback {
+      background: #ffa500;
+      color: white;
+    }
+
+    .clone-btn {
+      position: absolute;
+      top: 1rem;
+      right: 5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      background: #6b6bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .clone-btn:hover {
+      background: #5a5ae6;
+    }
+
+    .refresh-label {
+      position: absolute;
+      top: 1rem;
+      right: 10rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      background: #888;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      #viewerGrid {
+        grid-template-columns: 1fr;
+      }
+      
+      .site-container h2 {
+        padding-right: 0;
+        margin-bottom: 2.5rem;
+      }
+      
+      .proxy-indicator, .clone-btn, .refresh-label {
+        top: auto;
+        bottom: 1rem;
+      }
+      
+      .proxy-indicator {
+        right: 1rem;
+      }
+      
+      .clone-btn {
+        right: 5rem;
+      }
+
+      .refresh-label {
+        right: 10rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <input id="urlInput" type="text" placeholder="Enter a domain or full URL (example.com)">
+  <input id="refreshInput" type="number" placeholder="Re-(sec)">
+  <button onclick="addSite()">ᯡ</button>
+</header>
+<div id="viewerGrid"></div>
+<script>
+  const PROXY_SERVERS = [
+    { url: 'https://corsproxy.io/?', name: 'CORS Proxy.io' },
+    { url: 'https://api.allorigins.win/get?url=', name: 'AllOrigins' },
+    { url: 'https://cors-anywhere.herokuapp.com/', name: 'CORS Anywhere' }
+  ];
+  function normalizeUrl(input) {
+    input = input.trim();
+    if (!input) return null;
+    for (const proxy of PROXY_SERVERS) {
+      if (input.startsWith(proxy.url)) {
+        input = input.slice(proxy.url.length);
+        break;
+      }
+    }
+      if (!input.startsWith('http')) {
+      input = 'https://' + input;
+    }
+      try {
+      const url = new URL(input);
+      return url.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+  async function fetchWithProxy(url, retries = PROXY_SERVERS.length) {
+    if (retries <= 0) {
+      throw new Error('All proxy servers failed');
+    }
+    const proxy = PROXY_SERVERS[PROXY_SERVERS.length - retries];
+    const proxyUrl = proxy.url + encodeURIComponent(url);
+    try {
+      const res = await fetch(proxyUrl);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      if (proxy.url.includes('allorigins.win')) {
+        const data = await res.json();
+        return {
+          content: data.contents,
+          proxyUsed: proxy.name,
+          isProxy: true,
+          isFallback: PROXY_SERVERS.length - retries > 0
+        };
+      }
+    
+      return {
+        content: await res.text(),
+        proxyUsed: proxy.name,
+        isProxy: true,
+        isFallback: PROXY_SERVERS.length - retries > 0
+      };
+    } catch (err) {
+      console.warn(`Proxy ${proxy.name} failed, trying next...`);
+      return fetchWithProxy(url, retries - 1);
+    }
+  }
+  async function fetchDirectly(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return {
+        content: await res.text(),
+        proxyUsed: 'None (direct)',
+        isProxy: false,
+        isFallback: false
+      };
+    } catch (err) {
+      console.warn('Direct fetch failed, trying with proxy...');
+      throw err;
+    }
+  }
+  function createProxyIndicator(proxyInfo) {
+    const indicator = document.createElement('div');
+    indicator.className = 'proxy-indicator ' + 
+      (proxyInfo.isProxy ? 
+        (proxyInfo.isFallback ? 'proxy-fallback' : 'proxy-active') : 
+        'proxy-inactive');
+    indicator.title = `Using: ${proxyInfo.proxyUsed}`;
+    indicator.textContent = proxyInfo.isProxy ? 'PROXY' : 'DIRECT';
+    if (proxyInfo.isFallback) {
+      indicator.textContent = 'FALLBACK';
+    }
+    return indicator;
+  }
+  function createCloneButton(url) {
+    const btn = document.createElement('button');
+    btn.className = 'clone-btn';
+    btn.textContent = 'CLONE';
+    btn.title = 'Create a duplicate of this site';
+    btn.onclick = () => {
+      document.getElementById('urlInput').value = url;
+      addSite();
+    };
+    return btn;
+  }
+  function createRefreshLabel(intervalSec) {
+    const label = document.createElement('div');
+    label.className = 'refresh-label';
+    label.textContent = `Reload every ${intervalSec}s`;
+    label.title = `This iframe will auto-refresh every ${intervalSec} seconds.`;
+    return label;
+  }
+  async function loadSite(url, container) {
+    try {
+      let result = await fetchDirectly(url).catch(() => fetchWithProxy(url));
+            const indicator = createProxyIndicator(result);
+      const cloneBtn = createCloneButton(url);
+      const refreshInterval = parseInt(container.dataset.refreshInterval, 10) || 0;
+      if (result.content.includes('<iframe') || result.content.includes('youtube.com') || result.content.includes('vimeo.com')) {
+        container.innerHTML = `<h2 data-url="${url}">${url}</h2>`;
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.allowFullscreen = true;
+        iframe.frameBorder = 0;
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        container.appendChild(iframe);
+        container.appendChild(indicator);
+        container.appendChild(cloneBtn);
+        if (refreshInterval > 0) {
+          const refreshLabel = createRefreshLabel(refreshInterval);
+          container.appendChild(refreshLabel);
+          setInterval(() => {
+            iframe.src = iframe.src;
+          }, refreshInterval * 1000);
+        }
+
+      } else {
+        const clean = DOMPurify.sanitize(result.content, { 
+          ADD_TAGS: ['iframe'], 
+          ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling', 'data-url'] 
+        });
+        container.innerHTML = `<h2 data-url="${url}">${url}</h2>${clean}`;
+        container.appendChild(indicator);
+        container.appendChild(cloneBtn);
+        if (refreshInterval > 0) {
+          const iframe = container.querySelector('iframe');
+          if (iframe) {
+            const refreshLabel = createRefreshLabel(refreshInterval);
+            container.appendChild(refreshLabel);
+            setInterval(() => {
+              iframe.src = iframe.src;
+            }, refreshInterval * 1000);
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load:', err);
+      container.innerHTML = `<h2 data-url="${url}">${url}</h2><p class="error">Failed to load: ${err.message}</p>`;
+    }
+  }
+  async function addSite() {
+    const urlInput = document.getElementById('urlInput');
+    const refreshInput = document.getElementById('refreshInput');
+    const rawUrl = urlInput.value;
+    const url = normalizeUrl(rawUrl);
+    const refreshValue = parseInt(refreshInput.value, 10);
+    if (!url) {
+      alert('Please enter a valid URL');
+      return;
+    }
+    const container = document.createElement('div');
+    container.className = 'site-container';
+    container.dataset.refreshInterval = isNaN(refreshValue) ? 0 : refreshValue;
+    container.innerHTML = `<h2 data-url="${url}">${url}</h2><p>Loading...</p>`;
+    document.getElementById('viewerGrid').appendChild(container);
+    urlInput.value = '';
+    refreshInput.value = '';
+    urlInput.focus();
+
+    await loadSite(url, container);
+  }
+
+  document.getElementById('urlInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') addSite();
+  });
+</script>
+
+</body>
+</html>
