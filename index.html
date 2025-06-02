@@ -1,322 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2FgLqrlL4QWHkAAAAC%2Ftrippy-trip.gif">
-  <title>ᗰᖇ. ᗪOE'ᔕ TOOᒪᗷO᙭</title>
+  <meta charset="UTF-8" />
+  <title>(っ◔◡◔)っ ♥ Mr0Doe ♥</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
-    :root {
-      --primary: #2A2F3B;
-      --secondary: #434956;
-      --accent: #6C63FF;
-      --text: #F5F5F5;
-      --success: #00ff88;
-      --error: #ff4444;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--text);
-    }
-
-    .container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 2.5rem;
-      border-radius: 25px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(108, 99, 255, 0.1);
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-      animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-        float 6s ease-in-out infinite;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg,
-          transparent,
-          rgba(255, 255, 255, 0.1),
-          transparent);
-      transition: 0.5s;
-    }
-
-    .container:hover::before {
-      left: 100%;
-    }
-
-    h1 {
-      margin-bottom: 1.5rem;
-      font-size: 2.5rem;
-      background: linear-gradient(45deg, #fff, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
-      position: relative;
-      animation: titleGlow 2s ease-in-out infinite alternate;
-    }
-
-    .input-group {
-      position: relative;
-      margin: 2rem 0;
-    }
-
-    input {
-      width: 100%;
-      padding: 1.3rem;
-      border: none;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text);
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      padding-left: 23px;
-    }
-
-    input:focus {
-      outline: 2px solid var(--accent);
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
-    }
-
-    .input-group::before {
-      content: '';
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.7;
-    }
-
-    button {
-      background: linear-gradient(135deg, var(--accent), #857dff);
-      color: white;
-      border: none;
-      padding: 1.2rem 2.5rem;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    button::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg,
-          transparent,
-          rgba(255, 255, 255, 0.3),
-          transparent);
-      transform: rotate(45deg);
-      animation: shine 3s infinite;
-    }
-
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
-    }
-
-    button:active {
-      transform: translateY(0);
-    }
-
-    .status {
-      margin-top: 1.5rem;
-      min-height: 24px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .success {
-      color: var(--success);
-      text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-    }
-
-    .error {
-      color: var(--error);
-      text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(50px);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
-    @keyframes titleGlow {
-      from {
-        text-shadow: 0 0 15px rgba(108, 99, 255, 0.3);
-      }
-
-      to {
-        text-shadow: 0 0 25px rgba(108, 99, 255, 0.5);
-      }
-    }
-
-    @keyframes shine {
-      0% {
-        transform: translateX(-100%) rotate(45deg);
-      }
-
-      100% {
-        transform: translateX(100%) rotate(45deg);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 1.5rem;
-        border-radius: 15px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      button {
-        padding: 1rem 2rem;
-      }
-    }
-
-    footer {
-      background: rgba(0, 0, 0, 0.5);
-      color: var(--text);
-      text-align: center;
-      padding: 1rem 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      backdrop-filter: blur(10px);
-    }
-
-    footer p {
-      margin: 0;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+      margin: 2em;
+      font-family: system-ui, sans-serif;
+      color: #111;
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>🔧 ᗰᖇ. ᗪOE'ᔕ TOOᒪᗷO᙭</h1>
-    <div class="input-group">
-      <input type="text" id="toolCode" placeholder="▌│█║▌║▌║ 𝙴𝚗𝚝𝚎𝚛 𝚝𝚘𝚘𝚕 𝚌𝚘𝚍𝚎... ║▌║▌║█│▌" maxlength="4">
-    </div>
-    <button onclick="handleDownload()">(っ◔◡◔)っ ♥ ᴰᵒʷⁿˡᵒᵃᵈ ᴿᵉˢᵒᵘʳᶜᵉ ♥</button>
-    <div class="status" id="status"></div>
-  </div>
-
-  <footer>
-    <p>Created by <a href="https://mr0doe.github.io/profile/" target="_blank">mr0doe</a></p>
-  </footer>
+  <div id="rendered"></div>
 
   <script>
-    const toolCodeMap = {
-      '1337': 'https://downgit.github.io/#/home?url=https://github.com/electron/electron/blob/main/shell/common/process_util.cc',
-      '777': 'https://downgit.github.io/#/home?url=https://github.com/NixOS/nixpkgs/blob/master/.mergify.yml',
-      '4242': 'https://downgit.github.io/#/home?url=https://github.com/python/cpython/blob/main/Lib/base64.py',
-      '9876': 'https://downgit.github.io/#/home?url=https://github.com/torvalds/linux/blob/master/kernel/sched/core.c',
-      '1111': 'https://mr0doe.github.io/profile',
-      '0000': 'https://mr0doe.github.io/about',
-      '7733': 'https://example.com/gfdtzcjfgniufgbn'
-    };
+    const rawMarkdown = `
+<h2 align="center">(っ◔◡◔)っ ♥ Mr0Doe ♥</h2>
 
-    function updateStatus(text, isError = false) {
-      const status = document.getElementById('status');
-      status.className = isError ? 'error' : 'success';
-      status.textContent = text;
-      setTimeout(() => status.textContent = '', 3000);
-    }
+<img align="right" height="150" src="https://avatars.githubusercontent.com/u/204567910"  />
 
-    function handleDownload() {
-      const code = document.getElementById('toolCode').value;
-      const status = document.getElementById('status');
+<div align="right">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="30" alt="javascript logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" height="30" alt="html5 logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" height="30" alt="css3 logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-plain.svg" height="30" alt="python logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" height="30" alt="bash logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original-wordmark.svg" height="30" alt="debian logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firefox/firefox-plain.svg" height="30" alt="firefox logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gimp/gimp-plain-wordmark.svg" height="30" alt="gimp logo"  />
+  <img width="29" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="30" alt="linux logo"  />
+</div>
 
-      if (!code.match(/^\d+$/)) {
-        updateStatus('⚠️ Invalid code format UwU! Use numbers only <w>', true);
-        return;
-      }
+<div align="left">
+  <a href="https://www.youtube.com/@0.ua" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="youtube logo"  />
+  </a>
+  <a href="https://www.instagram.com/6rfdd45/" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="instagram logo"  />
+  </a>
+  <a href="https://www.twitch.tv/brudere" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Twitch&logo=twitch&label=&color=9146FF&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="twitch logo"  />
+  </a>
+  <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia4.giphy.com%2Fmedia%2FRJwX8uzgNZhyh8RbYk%2Fgiphy.gif" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
+  </a>
+  <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia4.giphy.com%2Fmedia%2FRJwX8uzgNZhyh8RbYk%2Fgiphy.gif" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="gmail logo"  />
+  </a>
+  <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia4.giphy.com%2Fmedia%2FRJwX8uzgNZhyh8RbYk%2Fgiphy.gif" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
+  </a>
+  <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia4.giphy.com%2Fmedia%2FRJwX8uzgNZhyh8RbYk%2Fgiphy.gif" target="_blank">
+    <img src="https://img.shields.io/static/v1?message=PayPal&logo=paypal&label=&color=00457C&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="paypal logo"  />
+  </a>
+</div>
 
-      const url = toolCodeMap[code];
+<br clear="both">
+<img src="https://profile-readme-generator.com/assets/snake.svg" alt="Snake animation" />
 
-      if (!url) {
-        updateStatus('❌ Invalid tool code!', true);
-        return;
-      }
+<div align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=mr0doe&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=aura&locale=en&hide_border=true&order=1" height="150" alt="stats graph"  />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=mr0doe&locale=en&hide_title=true&layout=compact&card_width=320&langs_count=5&theme=aura&hide_border=true&order=2" height="150" alt="languages graph"  />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=mr0doe&radius=16&theme=gotham&area=true&order=5&custom_title=major%20updates%20in%20'mr0doe'%20repos&hide_border=false&hide_title=false" height="300" alt="activity-graph graph"  />
+</div>
 
-      updateStatus('⏳ Downloading...');
+<div align="right">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=globalforums&locale=en&hide_title=true&layout=compact&card_width=320&langs_count=5&theme=aura&hide_border=true&order=2" height="150" alt="languages graph"  />
+  <img src="https://github-readme-stats.vercel.app/api?username=globalforums&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=aura&locale=en&hide_border=true&order=1" height="150" alt="stats graph"  />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=globalforums&radius=16&theme=gotham&area=true&order=5&custom_title=major%20updates%20in%20'GlobalForums'%20repos&hide_border=false&hide_title=false" height="300" alt="activity-graph graph"  />
+</div>
 
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', '');
-      link.style.display = 'none';
+<div align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=button360&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=aura&locale=en&hide_border=true&order=1" height="150" alt="stats graph"  />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=button360&locale=en&hide_title=true&layout=compact&card_width=320&langs_count=5&theme=aura&hide_border=true&order=2" height="150" alt="languages graph"  />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=button360&radius=16&theme=gotham&area=true&order=5&custom_title=major%20updates%20in%20'Button360'%20repos&hide_border=false&hide_title=false" height="300" alt="activity-graph graph"  />
+</div>
 
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+<div align="left">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=mr0doe.mr0doe&left_text=usr_table.%7Bvisited%7D"  />
+</div>
+<style>
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  a {
+    color: #bb86fc;
+  }
+  
+  a:visited {
+    color: #b39ddb;
+  }
+  
+  pre, code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+  }
+</style>
 
-      updateStatus('✅ Download started!');
-    }
+`;
+
+    document.getElementById('rendered').innerHTML = marked.parse(rawMarkdown);
   </script>
 </body>
-
 </html>
